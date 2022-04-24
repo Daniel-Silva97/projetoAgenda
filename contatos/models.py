@@ -35,7 +35,7 @@ class Contato(models.Model):
     data_criacao = models.DateTimeField(default=timezone.now)
     descricao = models.TextField(blank=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)  # Criando chave estrangeira referenciando
-
+    mostrar = models.BooleanField(default=True)
     # classe Categoria
 
     def __str__(self):
