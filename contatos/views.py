@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from .models import Contato
 from django.core.paginator import Paginator
+from django.db.models import Q, Value
+from django.db.models.functions import Concat
 
 
 # Create your views here.
@@ -30,6 +32,7 @@ def see_contact(request, contato_id):
         'contato': contato
     })
 
+
 # Forma mais trabalhosa de retornar erro 404 com try ... except
 # try:
 #     contato = Contato.objects.get(id=contato_id)
@@ -38,3 +41,28 @@ def see_contact(request, contato_id):
 #     })
 # except Contato.DoesNotExist as e:
 #     raise Http404()
+
+
+def busca(request):
+    termo = request.GET.get('termo')  # Pegando o que foi digitado no campo de busca
+    if termo is None:
+        raise Http404()
+
+    # Concatenando nome e sobrenome
+    campos = Concat('nome', Value(' '), 'sobrenome')
+
+    contatos = Contato.objects.annotate(
+        nome_completo=campos
+    ).filter(
+        Q(nome_completo__icontains=termo) | Q(telefone__icontains=termo)
+    )
+    # Para ver o select que o sistema está executando
+    # print(contatos.query)
+
+    paginator = Paginator(contatos, 5)
+    page = request.GET.get('p')
+    contatos = paginator.get_page(page)
+
+    return render(request, 'contatos/index.html', {
+        'contatos': contatos
+    })
