@@ -27,7 +27,11 @@ def see_contact(request, contato_id):
 
     # Não exibindo os detalhes se o campo mostrar estiver = False
     if not contato.mostrar:
-        raise Http404()
+        messages.add_message(request,
+                             messages.ERROR,
+                             'Este contato não existe!'
+                             )
+        return redirect('index')
 
     return render(request, 'contatos/see_contact.html', {
         'contato': contato
