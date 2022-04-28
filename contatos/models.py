@@ -36,6 +36,7 @@ class Contato(models.Model):
     descricao = models.TextField(blank=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)  # Criando chave estrangeira referenciando
     mostrar = models.BooleanField(default=True)
+    foto = models.ImageField(blank=True, upload_to='fotos/%Y/%m/%d')
     # classe Categoria
 
     def __str__(self):
