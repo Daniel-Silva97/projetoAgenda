@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
-login
-{% include 'partials/_messages.html' %}
+    <div class="text-center" style="">
+        <form class="form-signin" method="POST" action="{% url 'login' %}">
+            {% include 'partials/_messages.html' %}
+            {% csrf_token %}
+            <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+
+            <label for="usuario" class="sr-only">Usuário</label>
+            <input type="text" id="usuario" name="usuario" class="form-control mt-3 mb-3" placeholder="Usuário" value="{{ request.POST.usuario }}" required="" autofocus="">
+            <label for="senha" class="sr-only">Senha</label>
+            <input type="password" id="senha" name="senha" class="form-control  mt-3 mb-3" placeholder="Senha" required="">
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+            <p class="mt-5 mb-3 text-muted">© 2022-2023</p>
+        </form>
+    </div>
 {% endblock %}
