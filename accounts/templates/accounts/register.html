@@ -8,19 +8,19 @@
       {% csrf_token %}
       <div class="form-group">
         <label>Nome</label>
-        <input type="text" class="form-control" name="nome" placeholder="Digite seu nome">
+        <input type="text" class="form-control" name="nome" value="{{ request.POST.nome }}" placeholder="Digite seu nome">
       </div>
       <div class="form-group">
         <label>Sobrenome</label>
-        <input type="text" class="form-control" name="sobrenome" placeholder="Digite seu sobrenome">
+        <input type="text" class="form-control" name="sobrenome" value="{{ request.POST.sobrenome }}" placeholder="Digite seu sobrenome">
       </div>
       <div class="form-group">
         <label>E-mail</label>
-        <input type="email" class="form-control" name="email" placeholder="Digite seu e-mail">
+        <input type="email" class="form-control" name="email" value="{{ request.POST.email }}" placeholder="Digite seu e-mail">
       </div>
       <div class="form-group">
         <label>Usuário</label>
-        <input type="text" class="form-control" name="usuario" placeholder="Digite seu usuário">
+        <input type="text" class="form-control" name="usuario" value="{{ request.POST.usuario }}" placeholder="Digite seu usuário">
       </div>
       <div class="form-group">
         <label>Senha</label>
