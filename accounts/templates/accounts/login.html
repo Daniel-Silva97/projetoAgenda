@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
-
+{%block titulo%}Login | {%endblock%}
 {% block conteudo %}
+    {% if not user.is_authenticated %}
     <div class="text-center" style="">
         <form class="form-signin" method="POST" action="{% url 'login' %}">
             {% include 'partials/_messages.html' %}
@@ -16,4 +17,8 @@
             <p class="mt-5 mb-3 text-muted">© 2022-2023</p>
         </form>
     </div>
+    {% else %}
+        Você está logado como {{ user }},
+        <a href="{% url 'logout' %}">clique aqui</a> para sair.
+    {% endif %}
 {% endblock %}
